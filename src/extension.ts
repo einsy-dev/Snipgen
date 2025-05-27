@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         const prefix = await vscode.window.showInputBox({
-          prompt: "Title",
+          prompt: "Prefix",
           ignoreFocusOut: true
         });
 
