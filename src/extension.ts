@@ -5,7 +5,7 @@ import snipgen from "./snipgen";
 
 export function activate(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(
-    "extension.sayHello",
+    "snipgen.parse",
     async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
@@ -26,10 +26,18 @@ export function activate(context: vscode.ExtensionContext) {
           ignoreFocusOut: true
         });
 
+        if (!name) {
+          return;
+        }
+
         const prefix = await vscode.window.showInputBox({
           prompt: "Title",
           ignoreFocusOut: true
         });
+
+        if (!prefix) {
+          return;
+        }
 
         const description = await vscode.window.showInputBox({
           prompt: "Description",
@@ -37,9 +45,9 @@ export function activate(context: vscode.ExtensionContext) {
         });
 
         await snipgen.parse(
-          name!,
-          body!,
-          prefix!,
+          name,
+          body,
+          prefix,
           description!,
           vscode.window.activeTextEditor!.document.languageId
         );

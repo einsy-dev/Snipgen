@@ -17,7 +17,7 @@
     "menus": {
       "editor/context": [
         {
-          "command": "extension.sayHello",
+          "command": "snipgen.parse",
           "when": "editorHasSelection",
           "group": "navigation"
         }
@@ -25,8 +25,8 @@
     },
     "commands": [
       {
-        "command": "extension.sayHello",
-        "title": "Hello World"
+        "command": "snipgen.parse",
+        "title": "Snipgen: Parse"
       }
     ]
   },
@@ -56,9 +56,5 @@
     "eslint": "^9.25.1",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "detype": "^1.1.2",
-    "prettier": "^3.5.3"
   }
 }

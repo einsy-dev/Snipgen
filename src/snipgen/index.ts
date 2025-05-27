@@ -12,9 +12,9 @@ class SnipGen {
     description: string,
     language: string
   ) {
-    const path = this.root + "/snipgen";
+    const path = this.root + "/.vscode";
     if (!fs.existsSync(path)) {
-      fs.mkdirSync(path);
+      fs.mkdirSync(path, { recursive: true });
     }
     if (!fs.existsSync(`${path}/${language}.code-snippets`)) {
       fs.writeFileSync(`${path}/${language}.code-snippets`, "{}");
@@ -30,7 +30,8 @@ class SnipGen {
     data[name] = {
       prefix,
       body: body.split("\n"),
-      description
+      description,
+      scope: language
     };
 
     fs.writeFileSync(
