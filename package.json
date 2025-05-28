@@ -2,7 +2,7 @@
   "name": "snipgen",
   "displayName": "snipgen",
   "description": "simple snippets generator",
-  "publisher": "einsy",
+  "publisher": "einsydev",
   "icon": "icon.png",
   "version": "0.0.1",
   "engines": {
