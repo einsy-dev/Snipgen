@@ -49,7 +49,7 @@ class SnipGen {
           }
 
           const newData: SnippetsI = JSON.parse(
-            fs.readFileSync(`${path}/${language}.code-snippets`, "utf-8") ||
+            fs.readFileSync(`${path}/${lang}.code-snippets`, "utf-8") ||
               "{}"
           );
 
