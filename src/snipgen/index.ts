@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import { SnippetsI } from "./interface";
-import { transform } from "detype";
+import { removeTypes } from "remove-types";
 
 class SnipGen {
   root = vscode.workspace.workspaceFolders![0].uri.fsPath;
@@ -39,9 +39,8 @@ class SnipGen {
       JSON.stringify(data, null, 2),
       "utf8"
     );
-
     if (language === "typescript" || language === "typescriptreact") {
-      await transform(body, "file.tsx")
+      await removeTypes(body)
         .then(async (result) => {
           let lang = language.replace("typescript", "javascript");
 
