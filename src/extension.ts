@@ -35,13 +35,15 @@ export function activate(context: vscode.ExtensionContext) {
       if (!prefix) return;
 
       const description = (await Modal.Input("Snippet description")) || "";
-      await snipgen.parse({
-        name,
-        body,
-        prefix,
-        description,
-        language: editor.document.languageId
-      });
+      await snipgen
+        .write({
+          name,
+          body,
+          prefix,
+          description,
+          language: editor.document.languageId
+        })
+        .catch((err) => Modal.Error(err));
     }
   );
   context.subscriptions.push(disposable);
