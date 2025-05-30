@@ -45,7 +45,7 @@ class Storage {
     }
 
     data[snippet.name] = {
-      prefix: snippet.prefix.trim().split(" "),
+      prefix: snippet.prefix.split(",").map((p) => p.trim()),
       body: snippet.body.split("\n"),
       description: snippet.description,
       scope: this.langScope[snippet.language] || snippet.language

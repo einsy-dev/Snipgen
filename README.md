@@ -24,4 +24,7 @@ SnipGen makes it easy to generate code snippets from your existing codebase. Her
     In the context menu, select SnipGen: Parse.
 
     Step 4: Configure the Snippet
-    You will be prompted to enter a Name, Prefix, and Description for your snippet. Fill in the required information to help you identify and use your snippet later.
+    You will be prompted to enter a Name, Prefix*, and Description for your snippet.
+    Fill in the required information to help you identify and use your snippet later.
+
+    *Prefix is a keywords that trigger the snippet. You can use a comma to separate multiple prefixes.
