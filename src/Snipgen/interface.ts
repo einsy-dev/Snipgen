@@ -8,7 +8,7 @@ interface SnippetI {
 
 interface SnippetsI {
   [name: string]: {
-    prefix: string;
+    prefix: string[];
     body: string[];
     description: string;
     scope: string;
