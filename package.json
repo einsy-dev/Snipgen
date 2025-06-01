@@ -1,13 +1,19 @@
 {
   "name": "snipgen",
   "displayName": "snipgen",
-  "description": "simple snippets generator",
+  "description": "Simple snippets generator",
   "publisher": "einsydev",
   "icon": "icon.png",
   "version": "0.0.5",
   "engines": {
     "vscode": "^1.100.0"
   },
+  "keywords": [
+    "snippets",
+    "generator",
+    "code",
+    "vscode"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/einsy-dev/Snipgen"
