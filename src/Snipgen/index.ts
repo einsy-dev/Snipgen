@@ -8,6 +8,7 @@ class Storage {
 
   langScope: { [key: string]: string } = {
     javascript: "javascript, javascriptreact, typescript, typescriptreact",
+    javascriptreact: "javascriptreact, typescriptreact",
     typescript: "typescript, typescriptreact"
   };
 
