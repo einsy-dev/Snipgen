@@ -1,24 +1,13 @@
 import Modal from "../Modal";
-import { State, StateI } from "../Store";
-import { snipgenService, SnipgenServiceI } from "./service";
+import fs from "fs";
+import * as vscode from "vscode";
+import config from "../Config";
+import { getSelection } from "../utils";
+import { SnippetI } from "./interface";
 
 class Snipgen {
-  constructor(
-    private readonly snipgenService: SnipgenServiceI,
-    private readonly state: StateI
-  ) {}
   async parse() {
-    const selection = this.state.editor.selection;
-    if (!selection || selection.isEmpty) return;
-
-    const selectionRange = new this.state.range(
-      selection.start.line,
-      selection.start.character,
-      selection.end.line,
-      selection.end.character
-    );
-
-    const body = this.state.editor.document.getText(selectionRange);
+    const body = getSelection();
     if (!body) return;
 
     const name = await Modal.Input("Snippet name (required)", {
@@ -32,16 +21,55 @@ class Snipgen {
     if (!prefix) return;
 
     const description = (await Modal.Input("Snippet description")) || "";
-    await this.snipgenService
-      .write({
-        name,
-        body,
-        prefix,
-        description,
-        language: this.state.editor.document.languageId
-      })
-      .catch((err) => Modal.Error(err));
+    let language = vscode.window.activeTextEditor?.document.languageId;
+    if (!language) throw new Error("language not found");
+
+    await this.write({
+      name,
+      body,
+      prefix,
+      description,
+      language
+    }).catch((err) => Modal.Error(err));
+  }
+
+  private read(language: string) {
+    if (fs.existsSync(`${config.vscode}/${language}.code-snippets`)) {
+      return JSON.parse(
+        fs.readFileSync(
+          `${config.vscode}/${language}.code-snippets`,
+          "utf-8"
+        ) || "{}"
+      );
+    }
+    return {};
+  }
+
+  async write(snippet: SnippetI) {
+    const data = this.read(snippet.language);
+    if (!data) return;
+    if (data[snippet.name]) {
+      if (!(await Modal.Confirm("Snippet already exists. Override?"))) return;
+    }
+
+    data[snippet.name] = {
+      prefix: snippet.prefix
+        .split(",")
+        .map((p) => p.trim())
+        .filter((el) => el),
+      body: snippet.body.split("\n"),
+      description: snippet.description,
+      scope: config.langScope[snippet.language] || snippet.language
+    };
+
+    fs.writeFileSync(
+      `${config.vscode}/${snippet.language}.code-snippets`,
+      JSON.stringify(data, null, 2),
+      "utf8"
+    );
+
+    Modal.Info("Snippet saved.");
   }
 }
 
-export default new Snipgen(snipgenService, State);
+export default new Snipgen();

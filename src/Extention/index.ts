@@ -1,9 +1,6 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { packageJson } from "./package";
-import { licence } from "./licence";
-import { readme } from "./readme";
-import { changeLog } from "./changeLog";
+import Config from "../Config";
 
 class Extention {
   root: string | undefined;
@@ -21,7 +18,7 @@ class Extention {
       fs.mkdirSync(this.root + "/extention/snippets", { recursive: true });
     }
 
-    const json = packageJson;
+    const json = Config.packageJson;
 
     snippets.forEach((el) => {
       fs.copyFileSync(
@@ -39,9 +36,9 @@ class Extention {
       JSON.stringify(json, null, 2)
     );
 
-    fs.writeFileSync(this.root + "/extention/LICENSE", licence);
-    fs.writeFileSync(this.root + "/extention/README.md", readme);
-    fs.writeFileSync(this.root + "/extention/CHANGELOG.md", changeLog);
+    fs.writeFileSync(this.root + "/extention/LICENSE", Config.license);
+    fs.writeFileSync(this.root + "/extention/README.md", Config.readme);
+    fs.writeFileSync(this.root + "/extention/CHANGELOG.md", Config.changeLog);
   }
 }
 

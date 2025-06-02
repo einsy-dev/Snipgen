@@ -1,12 +1,6 @@
 import * as vscode from "vscode";
 
 class Modal {
-  /**
-   * @param prompt Text to display under input
-   * @param required Will repeat input and warn if value empty and not undefined
-   * @param defaultValue
-   * @returns User input
-   */
   async Input(prompt: string, { required = false, defaultValue = "" } = {}) {
     return await vscode.window
       .showInputBox({

@@ -1,22 +1,24 @@
-import { State, StateI } from "../Store";
+import * as vscode from "vscode";
 
 class Clipboard {
-  constructor(private readonly state: StateI) {}
+  constructor() {}
 
   public async stringifyAndCopy() {
-    const selection = this.state.editor.selection;
+    const selection = vscode.window.activeTextEditor?.selection;
     if (!selection || selection.isEmpty) return;
-    const selectionRange = new this.state.range(
+    const selectionRange = new vscode.Range(
       selection.start.line,
       selection.start.character,
       selection.end.line,
       selection.end.character
     );
 
-    await this.state.clipboard.writeText(
-      JSON.stringify(this.state.editor.document.getText(selectionRange))
+    await vscode.env.clipboard.writeText(
+      JSON.stringify(
+        vscode.window.activeTextEditor?.document.getText(selectionRange)
+      )
     );
   }
 }
 
-export default new Clipboard(State);
+export default new Clipboard();
