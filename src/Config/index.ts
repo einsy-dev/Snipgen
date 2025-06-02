@@ -7,7 +7,7 @@ class Config {
   ext: string;
 
   constructor() {
-    if (!vscode.workspace.workspaceFolders) throw new Error();
+    if (!vscode.workspace.workspaceFolders) throw new Error("Workspace not found");
     this.root = vscode.workspace.workspaceFolders[0].uri.fsPath;
     this.vscode = this.root + "/.vscode";
     this.ext = this.root + "/extention";

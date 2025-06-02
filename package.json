@@ -29,26 +29,26 @@
         {
           "command": "snipgen.parse",
           "when": "editorHasSelection",
-          "group": "navigation"
+          "group": "clipboard"
         },
         {
           "command": "snipgen.copyStringify",
           "when": "editorHasSelection",
-          "group": "snipgen"
+          "group": "clipboard"
         }
       ],
       "explorer/context": [
         {
           "command": "snipgen.initExtention",
           "when": "true",
-          "group": "snipgen"
+          "group": "clipboard"
         }
       ]
     },
     "commands": [
       {
         "command": "snipgen.parse",
-        "title": "Snipgen: Parse"
+        "title": "Snipgen: Make snippet"
       },
       {
         "command": "snipgen.initExtention",

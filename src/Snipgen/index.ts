@@ -13,14 +13,13 @@ class Snipgen {
     const name = await Modal.Input("Snippet name (required)", {
       required: true
     });
-    if (!name) return;
 
     const prefix = await Modal.Input("Snippet prefix 'trigger' (required)", {
       required: true
     });
-    if (!prefix) return;
 
-    const description = (await Modal.Input("Snippet description")) || "";
+    const description = await Modal.Input("Snippet description");
+
     let language = vscode.window.activeTextEditor?.document.languageId;
     if (!language) throw new Error("language not found");
 
@@ -31,18 +30,6 @@ class Snipgen {
       description,
       language
     }).catch((err) => Modal.Error(err));
-  }
-
-  private read(language: string) {
-    if (fs.existsSync(`${config.vscode}/${language}.code-snippets`)) {
-      return JSON.parse(
-        fs.readFileSync(
-          `${config.vscode}/${language}.code-snippets`,
-          "utf-8"
-        ) || "{}"
-      );
-    }
-    return {};
   }
 
   async write(snippet: SnippetI) {
@@ -69,6 +56,17 @@ class Snipgen {
     );
 
     Modal.Info("Snippet saved.");
+  }
+  private read(language: string) {
+    if (fs.existsSync(`${config.vscode}/${language}.code-snippets`)) {
+      return JSON.parse(
+        fs.readFileSync(
+          `${config.vscode}/${language}.code-snippets`,
+          "utf-8"
+        ) || "{}"
+      );
+    }
+    return {};
   }
 }
 

@@ -8,7 +8,8 @@ class Modal {
         ignoreFocusOut: true
       })
       .then(async (res): Promise<string> => {
-        if (required && !res && res !== undefined) {
+        if (res === undefined) throw new Error("Modal closed.");
+        if (required && !res) {
           this.Warning("Please enter a value.");
           return await this.Input(prompt, { required, defaultValue });
         }
