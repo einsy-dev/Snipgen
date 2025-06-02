@@ -30,6 +30,18 @@
           "command": "snipgen.parse",
           "when": "editorHasSelection",
           "group": "navigation"
+        },
+        {
+          "command": "snipgen.copyStringify",
+          "when": "editorHasSelection",
+          "group": "snipgen"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "snipgen.initExtention",
+          "when": "true",
+          "group": "snipgen"
         }
       ]
     },
@@ -37,6 +49,14 @@
       {
         "command": "snipgen.parse",
         "title": "Snipgen: Parse"
+      },
+      {
+        "command": "snipgen.initExtention",
+        "title": "Snipgen: Init Extention"
+      },
+      {
+        "command": "snipgen.copyStringify",
+        "title": "Snipgen: Copy Stringify"
       }
     ]
   },
