@@ -4,15 +4,21 @@ import * as vscode from "vscode";
 import Snipgen from "./Snipgen";
 import Extention from "./Extention";
 import Clipboard from "./Clipboard";
+import Config from "./Config";
+import Modal from "./Modal";
 
 export function activate(context: vscode.ExtensionContext) {
-  const snipgenParse = vscode.commands.registerCommand("snipgen.parse", () =>
-    Snipgen.parse()
-  );
+  const snipgenParse = vscode.commands.registerCommand("snipgen.parse", () => {
+    if (!Config.root) return Modal.Error("No workspace");
+    Snipgen.parse();
+  });
 
   const extentionInit = vscode.commands.registerCommand(
     "snipgen.initExtention",
-    () => Extention.init()
+    () => {
+      if (!Config.root) return Modal.Error("No workspace");
+      Extention.init();
+    }
   );
 
   const copyStringify = vscode.commands.registerCommand(

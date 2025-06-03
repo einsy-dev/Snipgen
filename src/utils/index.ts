@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 
 export function getSelection() {
-  const selection = vscode.window.activeTextEditor?.selection;
-  if (!selection || selection.isEmpty) return;
+  const selection = vscode.window.activeTextEditor!.selection;
 
   const selectionRange = new vscode.Range(
     selection.start.line,

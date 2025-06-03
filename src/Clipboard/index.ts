@@ -5,7 +5,9 @@ class Clipboard {
   constructor() {}
 
   public async stringifyAndCopy() {
-    await vscode.env.clipboard.writeText(JSON.stringify(getSelection()));
+    await vscode.env.clipboard.writeText(
+      JSON.stringify(getSelection()!.split("\n"))
+    );
   }
 }
 

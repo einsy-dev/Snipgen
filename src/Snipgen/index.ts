@@ -1,7 +1,7 @@
 import Modal from "../Modal";
 import fs from "fs";
 import * as vscode from "vscode";
-import config from "../Config";
+import Config from "../Config";
 import { getSelection } from "../utils";
 import { SnippetI } from "./interface";
 
@@ -34,7 +34,7 @@ class Snipgen {
 
   async write(snippet: SnippetI) {
     const data = this.read(snippet.language);
-    if (!data) return;
+
     if (data[snippet.name]) {
       if (!(await Modal.Confirm("Snippet already exists. Override?"))) return;
     }
@@ -46,11 +46,11 @@ class Snipgen {
         .filter((el) => el),
       body: snippet.body.split("\n"),
       description: snippet.description,
-      scope: config.langScope[snippet.language] || snippet.language
+      scope: Config.langScope[snippet.language] || snippet.language
     };
 
     fs.writeFileSync(
-      `${config.vscode}/${snippet.language}.code-snippets`,
+      `${Config.vscode}/${snippet.language}.code-snippets`,
       JSON.stringify(data, null, 2),
       "utf8"
     );
@@ -58,10 +58,10 @@ class Snipgen {
     Modal.Info("Snippet saved.");
   }
   private read(language: string) {
-    if (fs.existsSync(`${config.vscode}/${language}.code-snippets`)) {
+    if (fs.existsSync(`${Config.vscode}/${language}.code-snippets`)) {
       return JSON.parse(
         fs.readFileSync(
-          `${config.vscode}/${language}.code-snippets`,
+          `${Config.vscode}/${language}.code-snippets`,
           "utf-8"
         ) || "{}"
       );

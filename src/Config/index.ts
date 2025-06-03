@@ -2,12 +2,12 @@ import * as vscode from "vscode";
 import { SnippetI } from "./interface";
 
 class Config {
-  root: string;
-  vscode: string;
-  ext: string;
+  root: string | undefined;
+  vscode: string | undefined;
+  ext: string | undefined;
 
   constructor() {
-    if (!vscode.workspace.workspaceFolders) throw new Error("Workspace not found");
+    if (!vscode.workspace.workspaceFolders) return;
     this.root = vscode.workspace.workspaceFolders[0].uri.fsPath;
     this.vscode = this.root + "/.vscode";
     this.ext = this.root + "/extention";
