@@ -1,8 +1,8 @@
 .vscode/**
-detype/**
+node_modules/**
+!node_modules/detype
 .vscode-test/**
 out/**
-node_modules/**
 src/**
 .gitignore
 .yarnrc
