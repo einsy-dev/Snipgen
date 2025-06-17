@@ -17,7 +17,7 @@ class Extention {
     snippets.forEach((el) => {
       fs.copyFileSync(
         Config.root + "/.vscode/" + el,
-        Config.ext + "/extention/snippets/" + el
+        Config.ext + "/snippets/" + el
       );
       json.contributes.snippets.push({
         language: el.split(".")[0],

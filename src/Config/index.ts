@@ -14,8 +14,7 @@ class Config {
   }
 
   langScope: { [key: string]: string } = Object.freeze({
-    javascript: "javascript, javascriptreact, typescript, typescriptreact",
-    javascriptreact: "javascriptreact, typescriptreact",
+    javascript: "javascript, javascriptreact",
     typescript: "typescript, typescriptreact"
   });
 

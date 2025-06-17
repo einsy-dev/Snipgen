@@ -4,11 +4,9 @@ SnipGen is a tool that helps you generate reusable code snippets from your exist
 
 ## Supported Languages
 
-- JavaScript: snippets that can be used in JavaScript, TypeScript, and React projects.
+- JavaScript: snippets that can be used in JavaScript and JavaScriptReact projects.
 
-- JavaScriptReact: snippets that can be used in JavaScriptReact and TypeScriptReact projects.
-
-- TypeScript: snippets that can be used in TypeScript and TypeScriptReact projects.
+- TypeScript: snippets that can be used in TypeScript, TypeScriptReact; JavaScript and JavaScriptReact (detyped).
 
 - Other languages: SnipGen can also generate snippets for other languages by reading the file extension and setting the scope to that language.
 

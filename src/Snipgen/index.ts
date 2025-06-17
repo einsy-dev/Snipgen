@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import Config from "../Config";
 import { getSelection } from "../utils";
 import { SnippetI } from "./interface";
+import { transform } from "detype";
 
 class Snipgen {
   async parse() {
@@ -22,6 +23,24 @@ class Snipgen {
 
     let language = vscode.window.activeTextEditor?.document.languageId;
     if (!language) throw new Error("language not found");
+
+    if (language === "typescript") {
+      await this.write({
+        name,
+        body: await transform(body, ".tsx", { prettierOptions: null }),
+        prefix,
+        description,
+        language: "javascript"
+      });
+    } else if (language === "typescriptreact") {
+      await this.write({
+        name,
+        body: await transform(body, ".tsx"),
+        prefix,
+        description,
+        language: "javascriptreact"
+      });
+    }
 
     await this.write({
       name,
@@ -44,10 +63,14 @@ class Snipgen {
         .split(",")
         .map((p) => p.trim())
         .filter((el) => el),
-      body: snippet.body.split("\n"),
+      body: snippet.body.trim().split("\n"),
       description: snippet.description,
       scope: Config.langScope[snippet.language] || snippet.language
     };
+
+    if (!fs.existsSync(Config.vscode!)) {
+      fs.mkdirSync(Config.vscode!, { recursive: true });
+    }
 
     fs.writeFileSync(
       `${Config.vscode}/${snippet.language}.code-snippets`,
